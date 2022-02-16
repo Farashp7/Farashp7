@@ -22,7 +22,7 @@ sqlite> insert into Movies values ('Big B','2007','Mammooty','Nafisa Ali','Amal 
 sqlite> insert into Movies values ('Trance','2020','Fahadh Fasil','Nazriya','Anwar Rasheed');
 
 Now table with 5 rows is created with given data.
-To display the the use following command
+To display the table use following command
 
 
 sqlite> select * from Movies;
