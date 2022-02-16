@@ -1,0 +1,130 @@
+create a new sqlite database using terminal.
+C:\Users\acer>cd D:\New folder\sqlite3
+
+C:\Users\acer>d:
+
+D:\New folder\sqlite3>prompt @$f
+
+@)sqlite3 movies.db
+
+Database named movies created.
+now we have to create table named movies with coloums Name,Year,Actor,Actress and Director using sqlite commands
+
+sqlite> create table Movies (Name varchar(20), Year INT, Actor varchar(20), Actress varchar(20), Director varchar(20));
+
+Insert values to each Row Using Sqlite Commands
+
+
+sqlite> insert into Movies values ('Rappakal','2002','Mammooty','Nayantara','Kamal');
+sqlite> insert into Movies values ('Dilwale Dulhunia Le Jaayenge','1995','Shah Rukh Khan','Kajol','Aditya Chopra');
+sqlite> insert into Movies values ('Charlie','2015','Dulquer Salman','Parvathy Thiruvothu','Martin Prakat');
+sqlite> insert into Movies values ('Big B','2007','Mammooty','Nafisa Ali','Amal Neerad');
+sqlite> insert into Movies values ('Trance','2020','Fahadh Fasil','Nazriya','Anwar Rasheed');
+
+Now table with 5 rows is created with given data.
+To display the the use following command
+
+
+sqlite> select * from Movies;
+Rappakal|2002|Mammooty|Nayantara|Kamal
+Dilwale Dulhunia Le Jaayenge|1995|Shah Rukh Khan|Kajol|Aditya Chopra
+Charlie|2015|Dulquer Salman|Parvathy Thiruvothu|Martin Prakat
+Big B|2007|Mammooty|Nafisa Ali|Amal Neerad
+Trance|2020|Fahadh Fasil|Nazriya|Anwar Rasheed
+
+
+Now using a java compiler we can connect our database to java application.
+To do this use following commands 
+
+
+
+package Movies;
+
+import java.nio.channels.SelectableChannel;
+import java.sql.*;
+
+public class movies {
+
+    public static void main(String[] args) {
+        String jdbcUrl = "jdbc:sqlite:/D:\\New folder\\sqlite3\\movies.db";
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl);
+            
+            
+         \\java program is connected to our database movies.
+        
+        \\Now to query movie details use following commands
+        
+        
+            String sql = "SELECT * FROM Movies";
+
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                String Name = result.getString("Name");
+                Integer Year = result.getInt("Year");
+                String Actor = result.getString("Actor");
+                String Actress = result.getString("Actress");
+                String Director = result.getString("Director");
+
+                System.out.println(Name + " | " + Year + " | " + Actor + " | " + Actress + " | " + Director);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error connection to SQLite database");
+            e.printStackTrace();
+
+        }
+         \\Output will be the entire Table
+         
+         \\Now we have to find movies that Mammooty casted main Actor.
+         \\For that use following command
+       
+
+
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl);
+            String sql = "SELECT * FROM Movies WHERE Actor = 'Mammooty'";
+
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                String Name = result.getString("Name");
+                Integer Year = result.getInt("Year");
+                String Actor = result.getString("Actor");
+                String Actress = result.getString("Actress");
+                String Director = result.getString("Director");
+
+                System.out.println("\n" +Name + " | " + Year + " | " + Actor + " | " + Actress + " | " + Director);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error connection to SQLite database");
+            e.printStackTrace();
+        }
+    }
+}
+
+
+\\The output of java program will be 
+
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\lib\idea_rt.jar=8764:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\bin" -Dfile.encoding=UTF-8 -classpath C:\Users\acer\IdeaProjects\Movies\sqlite-jdbc-3.36.0.3.jar;C:\Users\acer\IdeaProjects\Movies\out\production\Movies Movies.movies
+Rappakal | 2002 | Mammooty | Nayantara | Kamal
+Dilwale Dulhunia Le Jaayenge | 1995 | Shah Rukh Khan | Kajol | Aditya Chopra
+Charlie | 2015 | Dulquer Salman | Parvathy Thiruvothu | Martin Prakat
+Big B | 2007 | Mammooty | Nafisa Ali | Amal Neerad
+Trance | 2020 | Fahadh Fasil | Nazriya | Anwar Rasheed
+
+Rappakal | 2002 | Mammooty | Nayantara | Kamal
+
+Big B | 2007 | Mammooty | Nafisa Ali | Amal Neerad
+
+Process finished with exit code 0
